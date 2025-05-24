@@ -1,5 +1,7 @@
 import telebot
 from telebot import types
+import os
+import random
 
 bot = telebot.TeleBot('7730117183:AAGJsFIUjsgDeY_U2H29Htw1xeniLa3Ya5k')
 
@@ -16,8 +18,11 @@ def help(message):
   "/consequences"
   "/methods_of_struggle"
   "/opinion_of_scientists"
-  "/"
-  "/", reply_markup=markup)
+  "/What_can_you_do"
+  "/FSA"
+  "/Facts"
+  "/Begining"
+  "/Reasons_to_watch_Oshi_no_KO", reply_markup=markup)
 
 @bot.message_handler(commands=['consequences'])
 def consequences(message):
@@ -130,7 +135,18 @@ def start_quest(message):
   "Среди научного сообщества ведутся дискуссии о сроках наступления критических изменений и оптимальных путях решения проблемы. Консервативная часть учёных настаивает на радикальном сокращении выбросов через переход на возобновляемую энергетику, повышение энергоэффективности и защиту экосистем. Более радикально настроенные исследователи предлагают рассмотреть методы геоинженерии как 'план Б', хотя и признают их потенциальные риски."
   "Межправительственная группа экспертов по изменению климата (IPCC) в своём последнем отчёте обозначила чёткие цели: сокращение выбросов на 45% к 2030 году и достижение углеродной нейтральности к 2050 году. Это требует немедленных и скоординированных действий всех стран. Учёные подчёркивают: хотя ситуация серьёзна, у человечества ещё есть шанс избежать наихудших сценариев, но для этого необходимы беспрецедентные политические решения и изменение потребительских моделей поведения в глобальном масштабе.", reply_markup=markup)
 
-@bot.message_handler(commands=['SCW'])
+@bot.message_handler(commands=['What_can_you_do'])
+def start_quest(message):
+  markup = types.ReplyKeyboardMarkup()
+  bot.send_message(message.chat.id, "Что ты можешь сделать, чтобы замедлить глобальное потеплениеБ если ты обычный школьник/студент/гражданин"
+  "/SCW1"
+  "/SCW2"
+  "/SCW3"
+  "/SCW4"
+  "/SCW5"
+  "/SCW6", reply_markup=markup) 
+
+@bot.message_handler(commands=['SCW1'])
 def start_quest(message):
   markup = types.ReplyKeyboardMarkup()
   bot.send_message(message.chat.id, "Даже если ты школьник, студент или обычный работяга — твои действия реально влияют на экологию. Вот конкретные шаги, которые помогут снизить углеродный след и внести вклад в борьбу с климатическим кризисом:"
@@ -262,10 +278,23 @@ def start_quest(message):
   markup = types.ReplyKeyboardMarkup()
   bot.send_message(message.chat.id, "Глобальное потепление — это долгий процесс, который ускорился из-за деятельности человека за последние 150 лет.", reply_markup=markup) 
 
-@bot.message_handler(commands=[''])
+@bot.message_handler(commands=['Reasons_to_watch_Oshi_no_KO'])
 def start_quest(message):
   markup = types.ReplyKeyboardMarkup()
-  bot.send_message(message.chat.id, "", reply_markup=markup) 
+  bot.send_message(message.chat.id, "1) Это лучшее аниме 2022 года" \
+  "2) Там есть Кана" \
+  "3) Да" \
+  "4) Смотри пункт №3", reply_markup=markup) 
+
+@bot.message_handler(commands=['photo'])
+def send_photo(message):
+    images = os.listdir('images')
+    if images:
+        image = random.choice(images)
+        with open(f'images/{image}', 'rb') as f:
+            bot.send_photo(message.chat.id, f)
+    else:
+        bot.reply_to(message, "В папке нет фотографий!")
 
 
 
