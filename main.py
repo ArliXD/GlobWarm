@@ -5,7 +5,7 @@ import random
 import requests
 from bs4 import BeautifulSoup
 
-bot = telebot.TeleBot('')
+bot = telebot.TeleBot('7730117183:AAGJsFIUjsgDeY_U2H29Htw1xeniLa3Ya5k')
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -303,7 +303,7 @@ def send_photo(message):
 @bot.message_handler(commands=['news'])
 def send_news(message):
     try:
-        html = requests.get('https://www.bbc.com/news').text
+        html = requests.get('https://iz.ru/tag/globalnoe-poteplenie').text
         soup = BeautifulSoup(html, 'html.parser')
         
         news = []
@@ -311,7 +311,7 @@ def send_news(message):
             title = item.text.strip()
             link = item.find_parent('a')['href']
             if not link.startswith('http'):
-                link = 'https://www.bbc.com' + link
+                link = 'https://iz.ru' + link
             news.append(f"• <a href='{link}'>{title}</a>")
         
         bot.send_message(message.chat.id, "\n\n".join(news), parse_mode='HTML')
